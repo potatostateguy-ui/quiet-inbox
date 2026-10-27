@@ -1,0 +1,138 @@
+'use strict';
+
+/**
+ * Sign-in help per provider. `steps` are shown to the user in order; `oauth` providers use a browser sign-in instead of a password.
+ * `squash` removes the spaces that some providers show inside app passwords.
+ */
+const PRESETS = {
+  gmail: {
+    label: 'Gmail',
+    host: 'imap.gmail.com',
+    port: 993,
+    security: 'tls',
+    squash: true,
+    helpUrl: 'https://myaccount.google.com/apppasswords',
+    helpLabel: 'Open Google’s app password page',
+    steps: [
+      'Open Google’s app password page with the button below. Sign in if Google asks.',
+      'If Google says the page isn’t available, turn on 2-Step Verification first, then come back.',
+      'Type “Quiet Inbox” as the app name and choose Create.',
+      'Google shows a 16-letter password. Copy it and paste it below.',
+    ],
+    domains: ['gmail.com', 'googlemail.com'],
+  },
+  yahoo: {
+    label: 'Yahoo Mail',
+    host: 'imap.mail.yahoo.com',
+    port: 993,
+    security: 'tls',
+    squash: true,
+    helpUrl: 'https://login.yahoo.com/account/security',
+    helpLabel: 'Open Yahoo’s security page',
+    steps: [
+      'Open Yahoo’s security page with the button below. Sign in if Yahoo asks.',
+      'Near the bottom, choose “Generate app password”.',
+      'Type “Quiet Inbox” as the name and choose Generate password.',
+      'Copy the password Yahoo shows and paste it below.',
+    ],
+    domains: ['yahoo.com', 'ymail.com', 'rocketmail.com', 'yahoo.co.uk', 'yahoo.ca', 'yahoo.com.au', 'sbcglobal.net', 'att.net', 'bellsouth.net'],
+  },
+  aol: {
+    label: 'AOL Mail',
+    host: 'imap.aol.com',
+    port: 993,
+    security: 'tls',
+    squash: true,
+    helpUrl: 'https://login.aol.com/account/security',
+    helpLabel: 'Open AOL’s security page',
+    steps: [
+      'Open AOL’s security page with the button below. Sign in if AOL asks.',
+      'Choose “Generate app password”.',
+      'Type “Quiet Inbox” as the name and choose Generate password.',
+      'Copy the password AOL shows and paste it below.',
+    ],
+    domains: ['aol.com', 'aim.com'],
+  },
+  icloud: {
+    label: 'iCloud Mail',
+    host: 'imap.mail.me.com',
+    port: 993,
+    security: 'tls',
+    helpUrl: 'https://account.apple.com/account/manage',
+    helpLabel: 'Open your Apple Account page',
+    steps: [
+      'Open your Apple Account page with the button below and sign in.',
+      'Choose Sign-In and Security, then App-Specific Passwords.',
+      'Add one named “Quiet Inbox”.',
+      'Copy the password Apple shows and paste it below.',
+    ],
+    domains: ['icloud.com', 'me.com', 'mac.com'],
+  },
+  fastmail: {
+    label: 'Fastmail',
+    host: 'imap.fastmail.com',
+    port: 993,
+    security: 'tls',
+    helpUrl: 'https://app.fastmail.com/settings/security/apppasswords',
+    helpLabel: 'Open Fastmail’s app passwords',
+    steps: ['Open Fastmail’s app passwords page with the button below.', 'Create a new app password with IMAP access, named “Quiet Inbox”.', 'Copy it and paste it below.'],
+    domains: ['fastmail.com', 'fastmail.fm'],
+  },
+  zoho: {
+    label: 'Zoho Mail',
+    host: 'imap.zoho.com',
+    port: 993,
+    security: 'tls',
+    helpUrl: 'https://accounts.zoho.com/home#security/app_password',
+    helpLabel: 'Open Zoho’s app passwords',
+    steps: ['Open Zoho’s app passwords page with the button below.', 'Generate a new password named “Quiet Inbox”.', 'Copy it and paste it below.'],
+    domains: ['zoho.com', 'zohomail.com'],
+  },
+  gmx: {
+    label: 'GMX',
+    host: 'imap.gmx.com',
+    port: 993,
+    security: 'tls',
+    steps: ['In GMX settings, open POP3 & IMAP and turn on IMAP access.', 'Then type your normal GMX password below.'],
+    domains: ['gmx.com', 'gmx.net', 'gmx.de'],
+  },
+  proton: {
+    label: 'Proton Mail',
+    host: '127.0.0.1',
+    port: 1143,
+    security: 'starttls',
+    allowInvalidCert: true,
+    helpUrl: 'https://proton.me/mail/bridge',
+    helpLabel: 'Get Proton Mail Bridge',
+    steps: ['Proton Mail needs the free Proton Mail Bridge app running on this computer.', 'Open Bridge and copy the IMAP password it shows for this address.', 'Paste it below.'],
+    domains: ['proton.me', 'protonmail.com', 'pm.me'],
+  },
+  outlook: {
+    label: 'Microsoft (Outlook, Hotmail, MSN)',
+    oauth: 'microsoft',
+    tenant: 'consumers',
+    host: 'outlook.office365.com',
+    port: 993,
+    security: 'tls',
+    steps: [
+      'Choose “Sign in with Microsoft”. A web page opens.',
+      'Sign in with your email address and the password you normally use for it.',
+      'If Microsoft asks whether Quiet Inbox can access your email, choose Accept.',
+      'When the page says you’re signed in, come back to this window.',
+    ],
+    domains: ['outlook.com', 'hotmail.com', 'live.com', 'msn.com', 'passport.com', 'hotmail.co.uk', 'live.co.uk', 'outlook.co.uk', 'live.ca', 'hotmail.ca', 'windowslive.com', 'webtv.net'],
+  },
+  other: {
+    label: 'your email provider',
+    host: '',
+    port: 993,
+    security: 'tls',
+    steps: [
+      'Type your email password below.',
+      'If it’s refused, your provider may require an “app password”. Search your provider’s help pages for “app password”.',
+    ],
+    domains: [],
+  },
+};
+
+module.exports = { PRESETS };

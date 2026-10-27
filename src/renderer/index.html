@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http:; font-src 'self' data: https: http:; frame-src 'self' about:; connect-src 'none'; object-src 'none'"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <title>Quiet Inbox</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="titlebar">
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6.5h12.5M3 11h9.5M3 15.5h6" />
+            <path d="M14 21l4.2-9.5a1.6 1.6 0 0 1 2.9 1.3L17 21z" fill="currentColor" stroke="none" />
+            <path d="M14 21h7" />
+          </svg>
+          <span>Quiet Inbox</span>
+        </div>
+        <nav class="tabs" role="tablist" aria-label="Sections">
+          <button class="tab" role="tab" data-view="mail" aria-selected="true">Mail</button>
+          <button class="tab" role="tab" data-view="analytics" aria-selected="false">Clean up</button>
+          <button class="tab" role="tab" data-view="rules" aria-selected="false">Blocked</button>
+          <button class="tab" role="tab" data-view="settings" aria-selected="false">Settings</button>
+        </nav>
+      </header>
+      <main class="views">
+        <section class="view view-mail" id="view-mail" role="tabpanel" aria-label="Mail"></section>
+        <section class="view" id="view-analytics" role="tabpanel" aria-label="Clean up" hidden></section>
+        <section class="view" id="view-rules" role="tabpanel" aria-label="Blocked senders" hidden></section>
+        <section class="view" id="view-settings" role="tabpanel" aria-label="Settings" hidden></section>
+      </main>
+      <footer class="console" id="console"></footer>
+    </div>
+    <script src="js/core.js"></script>
+    <script src="js/actions.js"></script>
+    <script src="js/accounts.js"></script>
+    <script src="js/mail.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/rules.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

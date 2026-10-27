@@ -1,0 +1,53 @@
+{
+  "name": "quiet-inbox",
+  "productName": "Quiet Inbox",
+  "version": "1.0.0",
+  "description": "A simple email cleanup app: see who fills your mailbox, delete it in one go, block senders.",
+  "main": "src/main/main.js",
+  "author": "Tanner Smitheram",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/oauth.test.js && node test/imap.test.js && node test/starred.test.js",
+    "dist": "electron-builder --win nsis portable",
+    "pack": "electron-builder --win --dir"
+  },
+  "dependencies": {
+    "imapflow": "2.4.0",
+    "mailparser": "3.9.38"
+  },
+  "devDependencies": {
+    "electron": "44.7.0",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "com.tannylab.quietinbox",
+    "productName": "Quiet Inbox",
+    "copyright": "TannyLab",
+    "files": [
+      "src/**/*",
+      "build/icon.png",
+      "package.json",
+      "oauth.config.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Quiet Inbox",
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "QuietInbox-Portable-${version}.exe"
+    }
+  }
+}
